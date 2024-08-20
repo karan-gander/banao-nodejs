@@ -12,7 +12,10 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-
+    fullname: {
+      type: String,
+      require: true,
+    },
     password: {
       type: String,
       require: true,
@@ -35,11 +38,8 @@ userSchema.methods.isPasswordCorrect = async function (password) {
   return await bycrpt.compare(password, this.password);
 };
 
-
-
-
 userSchema.methods.genJWT = async function () {
- return jwt.sign(
+  return jwt.sign(
     {
       _id: this.id,
       email: this.email,

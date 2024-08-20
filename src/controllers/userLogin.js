@@ -18,7 +18,7 @@ export const userLogin = asyncHandler(async(req,res)=>{
     const isPasswordCorrect = user.isPasswordCorrect(password);
     if(!isPasswordCorrect) throw new customError(400,"password is not correct");
 
-    const loggedInUser = await User.findById(user.id).select("-password")
+    const loggedInUser = await User.findById(user.id).select("-password -_id -__v")
 
     const accessToken = await user.genJWT()
     // console.log(accessToken)
